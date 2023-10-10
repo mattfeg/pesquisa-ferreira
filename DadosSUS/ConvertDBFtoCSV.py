@@ -7,19 +7,20 @@ meses = [f"{i:02d}" for i in range(1, 13)]  # de "01" a "12"
 
 # Lista para armazenar DataFrames temporários
 dfs = []
-
+print("Iniciando a leitura dos arquivos...")
 # Loop para ler os arquivos
 for ano in anos:
     for mes in meses:
-        arquivo = f"/Users/ferreira/Library/CloudStorage/OneDrive-Pessoal/Mestrado/Pesquisa/DadosSUS/DBF/RDCE{ano}{mes}.dbf"
         try:
-            dbf = DBF(arquivo)
+            print(f'Lendo arquivo {ano}{mes}...')
+            dbf = DBF(f"./DadosSUS/DBF/RDCE{ano}{mes}.dbf")
             df_temp = pd.DataFrame(iter(dbf))
             dfs.append(df_temp)
-            print(f'Arquivo {ano}{mes} concluido')
-            pd.write_csv(df_temp, f"/Users/ferreira/Library/CloudStorage/OneDrive-Pessoal/Mestrado/Pesquisa/DadosSUS/CSV/RDCE{ano}{mes}.csv")
+            df_temp.to_csv(f"./DadosSUS/CSV/RDCE{ano}{mes}.csv", index=False)
         except:
             print(f"Arquivo {ano}{mes} não encontrado.")
+        else:
+            print(f"Arquivo {ano}{mes} concluido.")
 
 # Concatenando todos os DataFrames em um único DataFrame
 print("Concatenando os DataFrames...")
