@@ -55,4 +55,4 @@ def CriarRedeMatriz(caminho_csv): # Informar o caminho no seguinte formato './Da
     df['MUNIC_RES'] = df['MUNIC_RES'].map(dfmunics.set_index('COD')['MUNIC'])
 
     tabela_cruzada = pd.crosstab(df['CNES'] , df['MUNIC_RES'])
-    tabela_cruzada.to_csv(f'./RedesMatriz/Matriz{caminho_csv.split('/')[-1].split('.')[0]}.csv', index=True, header=True)
+    tabela_cruzada.to_csv(f"./RedesMatriz/Matriz{caminho_csv.split('/')[-1].split('.')[0]}.csv", index=True, header=True)
