@@ -9,19 +9,36 @@
 import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
+import numpy as np
 
 figuras = []
+grau_medio_por_mes = []
+densidade_por_mes = []
+quantidade_de_nos_por_mes = []
+quantiodade_de_arestas_por_mes = []
+
 def CriarRedeNx(caminho_csv): # Informar o caminho no seguinte formato './RedesCSV/xxxx.csv'
     df = pd.read_csv(caminho_csv, sep=',', encoding='Latin1',index_col='CNES')
     rede = nx.DiGraph()
     for municipio in df.columns:
         for hospital in df.index:
             rede.add_edge(municipio, hospital, weight=df[municipio][hospital])
-    figuras.append(plt.figure(figsize=(10,10)))
-    nx.draw(rede,with_labels=True)
+    
+    #figuras.append(plt.figure(figsize=(10,10)))
+    #nx.draw(rede,with_labels=True)
     #plt.show()
+
+    print("-------------------------")
+    print("Rede: ", caminho_csv.split('/')[-1].split('.')[0])
     print("Quantidade de Nós: ", len(rede.nodes()))
     print("Quantidade de Arestas: ", len(rede.edges()))
+    print("Densidade: ", nx.density(rede))
+    print("Grau médio dos nós: ", np.mean([d for n, d in rede.degree()]))
+
+    grau_medio_por_mes.append(np.mean([d for n, d in rede.degree()]))
+    densidade_por_mes.append(nx.density(rede))
+    quantidade_de_nos_por_mes.append(len(rede.nodes()))
+    quantiodade_de_arestas_por_mes.append(len(rede.edges()))
 
 def CriarRedeMatriz(caminho_csv): # Informar o caminho no seguinte formato './DadosSUS/CSV/xxxx.csv'
     df = pd.read_csv(caminho_csv, sep=',', encoding='Latin1')
