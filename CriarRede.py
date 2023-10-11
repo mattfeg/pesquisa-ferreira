@@ -18,7 +18,7 @@ def CriarRedeNx(caminho_csv): # Informar o caminho no seguinte formato './RedesC
         for hospital in df.index:
             rede.add_edge(municipio, hospital, weight=df[municipio][hospital])
     figuras.append(plt.figure(figsize=(10,10)))
-    nx.draw(rede, with_labels=True)
+    nx.draw(rede,with_labels=True)
     #plt.show()
     print("Quantidade de Nós: ", len(rede.nodes()))
     print("Quantidade de Arestas: ", len(rede.edges()))
