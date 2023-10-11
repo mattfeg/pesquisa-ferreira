@@ -17,6 +17,7 @@ densidade_por_mes = []
 quantidade_de_nos_por_mes = []
 quantiodade_de_arestas_por_mes = []
 
+
 def CriarRedeNx(caminho_csv): # Informar o caminho no seguinte formato './RedesCSV/xxxx.csv'
     df = pd.read_csv(caminho_csv, sep=',', encoding='Latin1',index_col='CNES')
     rede = nx.DiGraph()
@@ -24,6 +25,7 @@ def CriarRedeNx(caminho_csv): # Informar o caminho no seguinte formato './RedesC
         for hospital in df.index:
             rede.add_edge(municipio, hospital, weight=df[municipio][hospital])
     
+    #Plotar Rede
     #figuras.append(plt.figure(figsize=(10,10)))
     #nx.draw(rede,with_labels=True)
     #plt.show()
@@ -39,6 +41,16 @@ def CriarRedeNx(caminho_csv): # Informar o caminho no seguinte formato './RedesC
     densidade_por_mes.append(nx.density(rede))
     quantidade_de_nos_por_mes.append(len(rede.nodes()))
     quantiodade_de_arestas_por_mes.append(len(rede.edges()))
+    
+    dfarestas = pd.DataFrame(columns=['Source', 'Target', 'Weight'])
+    for aresta in rede.edges():
+        dfarestas = dfarestas.append({'Source': aresta[0], 'Target': aresta[1], 'Weight': rede[aresta[0]][aresta[1]]['weight']}, ignore_index=True)
+    print(dfarestas)
+    
+    #Remover Arestas com peso 0
+    #for aresta in rede.edges():
+    #    if rede[aresta[0]][aresta[1]]['weight'] == 0:
+    #        rede.remove_edge(aresta[0], aresta[1])
 
 def CriarRedeMatriz(caminho_csv): # Informar o caminho no seguinte formato './DadosSUS/CSV/xxxx.csv'
     df = pd.read_csv(caminho_csv, sep=',', encoding='Latin1')
