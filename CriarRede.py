@@ -41,10 +41,10 @@ def CriarRedeNx(caminho_csv): # Informar o caminho no seguinte formato './RedesC
     densidade_por_mes.append(nx.density(rede))
     quantidade_de_nos_por_mes.append(len(rede.nodes()))
     quantiodade_de_arestas_por_mes.append(len(rede.edges()))
-    
+
     dfarestas = pd.DataFrame(columns=['Source', 'Target', 'Weight'])
     for aresta in rede.edges():
-        dfarestas = dfarestas.append({'Source': aresta[0], 'Target': aresta[1], 'Weight': rede[aresta[0]][aresta[1]]['weight']}, ignore_index=True)
+        dfarestas = pd.concat([dfarestas, pd.DataFrame({'Source': aresta[0], 'Target': aresta[1], 'Weight': rede[aresta[0]][aresta[1]]['weight']}, index=[0])], ignore_index=True)
     print(dfarestas)
     
     #Remover Arestas com peso 0

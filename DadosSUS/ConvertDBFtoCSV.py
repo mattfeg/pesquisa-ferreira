@@ -2,7 +2,7 @@ from dbfread import DBF
 import pandas as pd
 
 # Lista de anos e meses
-anos = [str(ano)[2:] for ano in range(2018, 2023)]  # de "18" a "22"
+anos = [str(ano)[2:] for ano in range(2015, 2018)]  # de "18" a "22"
 meses = [f"{i:02d}" for i in range(1, 13)]  # de "01" a "12"
 
 # Lista para armazenar DataFrames temporários
