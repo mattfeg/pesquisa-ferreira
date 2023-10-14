@@ -1,4 +1,4 @@
-from CriarRede import CriarRedeNx, CriarRedeMatriz, grau_medio_por_mes, densidade_por_mes, quantidade_de_nos_por_mes, quantiodade_de_arestas_por_mes 
+from CriarRede import *
 import matplotlib.pyplot as plt
 
 Plots = 0

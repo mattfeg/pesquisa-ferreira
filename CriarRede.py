@@ -1,11 +1,4 @@
 # CRIAR REDE DE MOVIMENTAÇÃO DAS AIH
-
-# ENTRADA: CSV com os Municípios de Residência e Hospitais de Internação
-
-# SAÍDA: Um arquivo CSV com os nós da Rede;
-# Um arquivo CSV com as arestas da Rede;
-# e a Rede montada no Networkx.
-
 import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -55,14 +48,11 @@ def CriarRedeNx(caminho_csv): # Informar o caminho no seguinte formato './RedesC
 def CriarRedeMatriz(caminho_csv): # Informar o caminho no seguinte formato './DadosSUS/CSV/xxxx.csv'
     df = pd.read_csv(caminho_csv, sep=',', encoding='Latin1')
 
-    #Filtro para câncer de pulmão
     df = df[df['DIAG_PRINC'].isin(['C340', 'C341', 'C342', 'C343', 'C348', 'C349'])]
     
-    # Lendo os arquivos CSV de CNES e MUNICS
     dfcnes = pd.read_csv('./DadosSUS/CNESBR.csv', sep=',', encoding='Latin1')
     dfmunics = pd.read_csv('./DadosSUS/MUNICSBR.csv', sep=',')
     
-    # Procura o nome do hospital pelo código CNES e substitui o código pelo nome
     df['CNES'] = df['CNES'].map(dfcnes.set_index('CNES')['NOMEFANT'])
     df['MUNIC_RES'] = df['MUNIC_RES'].map(dfmunics.set_index('COD')['MUNIC'])
 
