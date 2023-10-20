@@ -1,6 +1,6 @@
 import requests
 
-api_key = "AIzaSyBscFoAkyz-6xE-vGHG4kvb7qprgg2iy10"
+api_key = "--"
 
 #for aresta in arestas:
     
